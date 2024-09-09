@@ -1,0 +1,13 @@
+releaseName: postgresql-superset
+name: postgresql
+repo:
+  name: bitnami
+  url: https://charts.bitnami.com/bitnami/
+version: 13.2.18
+options:
+  commonLabels:
+    stackable.tech/vendor: Stackable
+  auth:
+    username: superset
+    password: superset
+    database: superset
