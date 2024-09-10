@@ -31,3 +31,9 @@ and add these lines to your `/etc/hosts`
     127.0.0.1	auth-server
     127.0.0.1	key-server
     127.0.0.1	test-server
+
+## Visualize subsea data
+
+    stackablectl -s stacks/stacks-v2.yaml -d demos/demos-v2.yaml -r release.yaml demo install trino-subsea-data
+
+Connect to Superset and log in with `admin:adminadmin`.
