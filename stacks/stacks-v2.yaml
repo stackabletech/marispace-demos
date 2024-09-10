@@ -140,3 +140,45 @@ stacks:
       - name: trinoDataImportUserPassword
         description: Password of the service user used to load data into Trino
         default: data-importdata-import
+  trino-superset-s3:
+    description: Stack containing MinIO, Trino and Superset for data visualization
+    stackableRelease: marispace-release
+    stackableOperators:
+      - commons
+      - listener
+      - secret
+      - hive
+      - trino
+      - opa
+      - superset
+    labels:
+      - trino
+      - superset
+      - minio
+      - s3
+    manifests:
+      - helmChart: stacks/_templates/minio.yaml
+      - helmChart: stacks/_templates/postgresql-hive.yaml
+      - helmChart: stacks/_templates/postgresql-superset.yaml
+      - plainYaml: stacks/trino-superset-s3/s3-connection.yaml
+      - plainYaml: stacks/trino-superset-s3/hive-metastore.yaml
+      - plainYaml: stacks/trino-superset-s3/trino.yaml
+      - plainYaml: stacks/trino-superset-s3/superset.yaml
+    supportedNamespaces: []
+    resourceRequests:
+      cpu: 6800m
+      memory: 15822Mi
+      pvc: 28Gi
+    parameters:
+      - name: trinoAdminPassword
+        description: Password of the Trino admin user
+        default: adminadmin
+      - name: supersetAdminPassword
+        description: Password of the Superset admin user
+        default: adminadmin
+      - name: minioAdminPassword
+        description: Password of the MinIO admin user
+        default: adminadmin
+      - name: supersetSecretKey
+        description: Superset's secret key used to generate e.g. user session tokens
+        default: supersetSecretKey

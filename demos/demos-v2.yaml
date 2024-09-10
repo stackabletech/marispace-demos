@@ -19,3 +19,21 @@ demos:
       cpu: 6250m
       memory: 19586Mi
       pvc: 40Gi
+  trino-subsea-data:
+    description: Demo loading ca. 600m^2 of ocean floor in a surface plot to visualize the irregularities of the ocean floor.
+    stackableStack: trino-superset-s3
+    labels:
+      - trino
+      - superset
+      - minio
+      - s3
+      - parquet
+    manifests:
+      - plainYaml: demos/trino-subsea-data/load-test-data.yaml
+      - plainYaml: demos/trino-subsea-data/create-table-in-trino.yaml
+      - plainYaml: demos/trino-subsea-data/setup-superset.yaml
+    supportedNamespaces: []
+    resourceRequests:
+      cpu: 6800m
+      memory: 15822Mi
+      pvc: 28Gi

@@ -1,0 +1,54 @@
+---
+apiVersion: superset.stackable.tech/v1alpha1
+kind: SupersetCluster
+metadata:
+  name: superset
+spec:
+  image:
+    productVersion: 4.0.2
+  clusterConfig:
+    listenerClass: external-unstable
+    credentialsSecret: superset-credentials
+    mapboxSecret: superset-mapbox-api-key
+  nodes:
+    roleGroups:
+      default:
+        replicas: 1
+        configOverrides:
+          superset_config.py:
+            # Needed by trino-subsea-data demo
+            ROW_LIMIT: "200000"
+            SQL_MAX_ROW: "200000"
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: superset-credentials
+type: Opaque
+stringData:
+  adminUser.username: admin
+  adminUser.firstname: Superset
+  adminUser.lastname: Admin
+  adminUser.email: admin@superset.com
+  adminUser.password: {{ supersetAdminPassword }}
+  connections.secretKey: {{ supersetSecretKey }}
+  connections.sqlalchemyDatabaseUri: postgresql://superset:superset@postgresql-superset/superset
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: superset-mapbox-api-key
+type: Opaque
+stringData:
+  connections.mapboxApiKey: "pk.eyJ1IjoibXVlbGxlcmNlbGluZSIsImEiOiJjbDZwM3llMTAwNGpmM2psdHU0Y21wZHJwIn0.kXFJKBbeyhbwf0z460JcTQ"
+# ---
+# TODO Use when available (https://github.com/stackabletech/superset-operator/issues/3)
+# apiVersion: superset.stackable.tech/v1alpha1
+# kind: TrinoConnection
+# metadata:
+#   name: superset-trino-connection
+# spec:
+#   superset:
+#     name: superset
+#   trino:
+#     name: trino

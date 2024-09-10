@@ -8,7 +8,7 @@ releases:
       hdfs:
         operatorVersion: 24.7.0
       hive:
-        operatorVersion: 24.3.0
+        operatorVersion: 24.7.0
       listener:
         operatorVersion: 24.7.0
       opa:
