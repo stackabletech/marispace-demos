@@ -8,9 +8,9 @@ spec:
     productVersion: 3.1.3
   clusterConfig:
     database:
-      connString: jdbc:postgresql://postgresql-hive:5432/hive
+      connString: jdbc:postgresql://postgresql-hive-iceberg:5432/hive
       dbType: postgres
-      credentialsSecret: postgres-credentials
+      credentialsSecret: postgres-hive-iceberg-credentials
     hdfs:
       configMap: hdfs
     authentication:
@@ -24,7 +24,7 @@ spec:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: postgres-credentials
+  name: postgres-hive-iceberg-credentials
 type: Opaque
 stringData:
   username: hive
