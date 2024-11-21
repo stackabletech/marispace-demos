@@ -1,0 +1,32 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: kc-superset-oidc-config
+  namespace: uc2-oidc
+spec:
+  encryptedData:
+    clientId: AgC1DCKVPKvLbBuoGuQ9uqVD/rdva7ItOSeUDOwOkJT+Ed2VxLYX0dGb0mevOViOlwWd44ZNlDqqQ07yjvI6qkGK8u6jFpz/xexYZS1p5y9cYWYIU0YRXIRVx0YqJwDz5zUinBFey53XBiW6fh6+jWVGRXxe1SQyA2uh526LIr7u41su68pWI9UtEAeO0AuQvv/UsaVxu78o9ZHOfsJiXKghad8HpNJETHhiDZweGN4rC1AVPxDvvLJfyZh02pzwqljAfnKpbfOqhzLk55CAdDUayskdL7jKbIPpBe9dcocHL+BrYToZfdmZs0kV+gG5FPNs6fIfnZAkHcdqCDbvsDWt8ebwBxRv98GZ3DJ/F5rCISv/pVe4dysAdR02OfI0Uv5f/Jbku5pnBoic4rXX+ET9S19d74t3Oqj3X5N+IC01MMu1GcaPSD6Rmgh0bvRLwcdmPFileFcLYfBERYDoUbkPHQvncaoGtfk7d6VVt5Z+b4+iSQH6qZsmQwePqAqvqh7+ckZ+lRwe63mGZtVcVwjStAtpdWyhtHdv/2pwPdLiaFYWHgK0b29OXoDSCcZFqXlH/u6xD6t/QjL4WOGIc3zQnNdYbCQI1sKgyst/LzYskzKCJ2AwZDUKUYDUHgXRg/r4Zm7fBgzQI4WN2992PuAwt6r2nrX+66Y/Pbu36eJkAzFJebMmZc1k+gN05te8K4/kAYJAZ+TnZEhxgw==
+    clientSecret: AgBSxrOoE9QCQv2NR8EUYDGUkodYJc2LC/Da8/enKtJrPvLAoLbTFKOf8OjD4igpwXNgnqtLGmZZWIWC9/MS1SF0ZCI19V48R6uSVBNA+6NFELea4ldJnpKQELRd8XFmja3mXhBlyPTvjWz9ptQcFeg1IQQzfgLCYiXhMeS+4nEZHc1F4OSve9l5FmJG1Q3WhNMblXluDwO/SNmoVvpLvBIkSYR5fDtCH2oey08s2H5/mMFAIAxLlsZaxGOlpwYys/BoF4KYFzn8fEu8m8R48NEqAJBbgHMZK8pIqIo72P749sbIWKkg92OhNOq7as2wfVrgrNhsRY41jkleoWRiCrRZdf6sYjKg0vDVZ2j2hU/NXirV3RokKgikw39VC2PYoD9adY3LqSdYsWjFdpsNkLl9/S9/3e7TuN0VPQ3e0WcHHd59aPXcFhouEfsuXHVgA1E5wWwqFBAlzPtX8FR7YDvEsqb6A4cNLEAGeoJM1/vYI1WddGckhlyGdYLr7Fm8HnX1IaM5FSWOoirN2G3qaYdROk3buyD95Lwi6y7KMB9mz6M4JtTFKXIN9Pn0ghO2GuWs3tp4PI1yd3P9G30yKwNz0JjCXocZ4QhjF4V+SbMSBtWPEIAUlXB2jteSvQHN32gIoX6cf/mAAp1Xxd/6e5ZA5f84rFa/4eD/RniurXYWQh0Yx9k8LKwIIJnEAG9CZ3fYdF380u03XQ6BjHMrCDpdTdNPDjRi6EsvvxMXuME+aA==
+  template:
+    metadata:
+      creationTimestamp: null
+      name: kc-superset-oidc-config
+      namespace: uc2-oidc
+    data:
+      client_config.json: |
+          {
+            "keycloak": {
+                "issuer": "https://kc.ssi.stackable.tech/realms/test",
+                "auth_uri": "https://kc.ssi.stackable.tech/realms/test/protocol/openid-connect/auth",
+                "client_id": "{{ index .clientId }}",
+                "client_secret": "{{ index .clientSecret }}",
+                "redirect_uris": [
+                    "http://kc-superset.ssi.stackable.tech/login"
+            ],
+                "userinfo_uri": "https://kc.ssi.stackable.tech/realms/test/protocol/openid-connect/userinfo",
+                "token_uri": "https://kc.ssi.stackable.tech/realms/test/protocol/openid-connect/token",
+                "token_introspection_uri": "https://kc.ssi.stackable.tech/realms/test/protocol/openid-connect/token/introspect"
+            }
+          }

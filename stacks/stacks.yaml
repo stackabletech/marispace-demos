@@ -163,9 +163,7 @@ stacks:
       - plainYaml: stacks/trino-superset-s3/s3-connection.yaml
       - plainYaml: stacks/trino-superset-s3/hive-metastore.yaml
       - plainYaml: stacks/trino-superset-s3/trino.yaml
-      #- plainYaml: stacks/trino-superset-s3/superset.yaml
       #- plainYaml: stacks/trino-superset-s3/superset-oidc.yaml
-      #- plainYaml: stacks/trino-superset-s3/cluster-issuer.yaml
     supportedNamespaces: []
     resourceRequests:
       cpu: 6800m

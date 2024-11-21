@@ -4,9 +4,72 @@ Demos that showcase various things related to Marispace and/or Gaia-X.
 
 ## Visualize subsea data
 
-    stackablectl -s stacks/stacks.yaml -d demos/demos.yaml -r release.yaml demo install trino-subsea-data
+### Prequisites
 
-Connect to Superset and log in with `admin:adminadmin`.
+Ingress-controller:
+
+    helm upgrade --install \
+    ingress-nginx ingress-nginx \
+    --repo https://kubernetes.github.io/ingress-nginx \
+    --namespace ingress-nginx \
+    --create-namespace \
+    --version v4.8.0
+
+Cert-manager:
+
+    helm upgrade --install \
+    cert-manager cert-manager \
+    --repo https://charts.jetstack.io \
+    --namespace cert-manager \
+    --create-namespace \
+    --set installCRDs=true \
+    --version v1.13.1
+
+    cat << 'EOF' | kubectl apply -f -
+    apiVersion: cert-manager.io/v1
+    kind: ClusterIssuer
+    metadata:
+      name: letsencrypt
+    spec:
+      acme:
+        server: https://acme-v02.api.letsencrypt.org/directory
+        privateKeySecretRef:
+          name: letsencrypt
+        solvers:
+          - http01:
+              ingress:
+                ingressClassName: nginx
+    EOF
+
+
+### Install
+
+    export NAMESPACE=uc2-oidc
+    stackablectl -s stacks/stacks.yaml -d demos/demos.yaml -r release.yaml demo install trino-subsea-data -n uc2-oidc
+
+N.B. some steps have been commented out so as to be able to follow the following steps.
+
+Deploy the sealed secret:
+
+    kubectl create -f stacks/trino-superset-s3/kc-superset-oidc-config_sealed.yaml
+
+Deploy superset to get the tables in postgresql:
+
+    kubectl apply -f stacks/trino-superset-s3/superset-oidc.yaml -n uc2-oidc
+
+Shell into postgrsql-superset and then extend the length of the username column:
+
+    psql --user superset
+    ALTER TABLE public.ab_user ALTER COLUMN username type varchar (256);
+    \d public.ab_user
+
+Create the superset ingress:
+
+    kubectl apply -f stacks/trino-superset-s3/superset-ing.yaml -n uc2-oidc
+
+Import the dashborard assets:
+
+    kubectl apply -f demos/trino-subsea-data/setup-superset.yaml -n uc2-oidc
 
 ## Security demos
 
