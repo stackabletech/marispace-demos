@@ -9,10 +9,10 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - superset.uc2.stackable.tech
+    - uc2-superset.marispacex.demos.stackable.tech
     secretName: ingress-uc2-superset
   rules:
-    - host: superset.uc2.stackable.tech
+    - host: uc2-superset.marispacex.demos.stackable.tech
       http:
         paths:
           -   path: /
