@@ -1,0 +1,24 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: uc2-superset
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - superset.uc2.stackable.tech
+    secretName: ingress-uc2-superset
+  rules:
+    - host: superset.uc2.stackable.tech
+      http:
+        paths:
+          -   path: /
+              pathType: Prefix
+              backend:
+                  service:
+                      name: superset-external
+                      port:
+                          number: 8088

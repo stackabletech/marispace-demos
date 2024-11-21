@@ -4,22 +4,22 @@ releases:
     description: TODO
     products:
       commons:
-        operatorVersion: 24.7.0
+        operatorVersion: 0.0.0-dev
       hdfs:
-        operatorVersion: 24.7.0
+        operatorVersion: 0.0.0-dev
       hive:
-        operatorVersion: 24.7.0
+        operatorVersion: 0.0.0-dev
       listener:
-        operatorVersion: 24.7.0
+        operatorVersion: 0.0.0-dev
       opa:
-        operatorVersion: 24.7.0
+        operatorVersion: 0.0.0-dev
       secret:
-        operatorVersion: 24.7.0
+        operatorVersion: 0.0.0-dev
       spark-k8s:
-        operatorVersion: 24.7.0
+        operatorVersion: 0.0.0-dev
       superset:
-        operatorVersion: 24.7.0
+        operatorVersion: 0.0.0-dev
       trino:
-        operatorVersion: 24.7.0
+        operatorVersion: 0.0.0-dev
       zookeeper:
-        operatorVersion: 24.7.0
+        operatorVersion: 0.0.0-dev
