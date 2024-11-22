@@ -67,9 +67,16 @@ Create the superset ingress:
 
     kubectl apply -f stacks/trino-superset-s3/superset-ing.yaml -n uc2-oidc
 
-Import the dashborard assets:
+Import the dashboard assets:
 
     kubectl apply -f demos/trino-subsea-data/setup-superset.yaml -n uc2-oidc
+
+### Optional: add Heatmap chart
+
+Create new HeatMap Chart using the same dataset with calculated columns:
+
+    lon = (footprint_x / 111059.585476) + 6.569
+    lat = (footprint_y / 111059.585476) + 0.0097
 
 ## Security demos
 
