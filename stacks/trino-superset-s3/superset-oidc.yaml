@@ -117,6 +117,9 @@ spec:
                       + session.get("oidc_auth_token").get("id_token")
                   )
           CUSTOM_SECURITY_MANAGER = MarispaceXSecurityManager
+          FEATURE_FLAGS = {
+              'DASHBOARD_RBAC': True,
+          }
     podOverrides:
       spec:
         containers:
